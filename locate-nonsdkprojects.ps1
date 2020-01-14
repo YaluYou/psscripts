@@ -3,14 +3,8 @@
 Set-StrictMode -Version 2
 $ErrorActionPreference = 'Stop'
 
-
-
-Function Get-ProjectFiles([string] $path){
-    if([string]:: IsNullOrEmpty($path)){
-        $path = Get-Location
-    }
-
-    Get-Childitem -Path $path -Include *.csproj -Recurse
+function Get-ProjectFiles([string] $path = (Get-Location)) {
+    Get-ChildItem -Path $path -Include *.csproj -Recurse
 }
 
 $solutionpath = "c:\Projects\WorkFlowMax\project"
@@ -24,6 +18,6 @@ $result = $fileList | % {
         return $_.FullName
     }
 }
-
+ 
 Write-Host $result -Separator "`n"
 Write-Host "Totale number of projects : $($result.length)"
